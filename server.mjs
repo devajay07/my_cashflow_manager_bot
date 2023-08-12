@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/new-message", (req, res) => {
-  const { message } = req.body;
+  const message = req.body.message;
   axios
     .post(
       "https://api.telegram.org/bot6428164643:AAES3HyVV_IAQREcm-MYZ58LRI72F4fcCag/sendMessage",
