@@ -20,9 +20,11 @@ app.get("/", (req, res) => {
 
 app.post("/new-message", async (req, res) => {
   console.log("Incoming request body:", req.body);
-  const chatId = req.body.message.chat.id || req.body.my_chat_member.chat.id;
+  const chatId =
+    req.body.message?.chat?.id || req.body.my_chat_member?.chat?.id;
   const name =
-    req.body.message.chat.first_name || req.body.my_chat_member.from.first_name;
+    req.body.message?.chat?.first_name ||
+    req.body.my_chat_member?.from?.first_name;
   const text = req.body.message.text;
   let botResponse;
 
