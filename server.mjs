@@ -18,10 +18,14 @@ app.post("/new-message", (req, res) => {
   const text = "Whatsuppp Bitchhhhh??????"; // Replace with your desired text
 
   axios
-    .post(`https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`, {
-      chat_id: chatId,
-      text: text,
-    })
+    .post(
+      `https://api.telegram.org/bot6428164643:AAES3HyVV_IAQREcm-MYZ58LRI72F4fcCag
+/sendMessage`,
+      {
+        chat_id: chatId,
+        text: text,
+      }
+    )
     .then((response) => {
       console.log("message posted", response.data);
       res.end("ok");
