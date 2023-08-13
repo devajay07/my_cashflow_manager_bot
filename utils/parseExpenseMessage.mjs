@@ -1,16 +1,19 @@
 const parseExpenseMessage = (text) => {
   const keywords = ["on", "in"];
-  const message = text.toLowerCase();
+  const message = text?.toLowerCase();
 
   let amount, category;
 
   // parse if keywords are present
   for (const keyword of keywords) {
-    const index = message.indexOf(keyword);
-    if (index !== -1) {
-      amount = parseFloat(message.substring(0, index).trim());
-      category = message.substring(index + keyword.length).trim();
-      break;
+    const keywordIndex = message.indexOf(keyword);
+    if (keywordIndex !== -1) {
+      // Check if keyword is not followed by any non-word character (letter, digit, or underscore)
+      if (message[keywordIndex + keyword.length].match(/\W/)) {
+        amount = parseFloat(message.substring(0, keywordIndex).trim());
+        category = message.substring(keywordIndex + keyword.length).trim();
+        break;
+      }
     }
   }
 

@@ -14,31 +14,41 @@ const monthNames = [
   "December",
 ];
 
-let expense = {
-  total: 0,
-  today: 0,
-  week: 0,
-  month: 0,
-  year: 0,
-  weekData: {},
-};
-
-// Initialize weekData for current date and previous six dates
-for (let i = 0; i <= 6; i++) {
-  const currentDate = new Date();
-  currentDate.setDate(todayDate.getDate() - i);
-  const currentDayOfMonth = currentDate.getDate();
-  const currentMonthName = monthNames[currentDate.getMonth()];
-  const dayAndMonth = `${currentDayOfMonth} ${currentMonthName}`;
-  expense.weekData[dayAndMonth] = 0; // Initialize with 0
-}
-
 const calculatedExpense = (user) => {
+  let expense = {
+    total: 0,
+    today: 0,
+    week: 0,
+    month: 0,
+    year: 0,
+    weekData: {},
+    monthData: {},
+  };
+
+  // Initialize weekData for current date and previous six dates
+  for (let i = 0; i <= 6; i++) {
+    const currentDate = new Date();
+    currentDate.setDate(todayDate.getDate() - i);
+    const currentDayOfMonth = currentDate.getDate();
+    const currentMonthName = monthNames[currentDate.getMonth()];
+    const dayAndMonth = `${currentDayOfMonth} ${currentMonthName}`;
+    expense.weekData[dayAndMonth] = 0; // Initialize with 0
+  }
+
+  for (const month of monthNames) {
+    expense.monthData[month] = 0;
+  }
   for (const item of user.expense) {
     // total expense
     expense.total += item.amount;
 
     const itemDate = new Date(item.date);
+
+    // every month expense
+    if (itemDate.getFullYear() === todayDate.getFullYear()) {
+      const itemMonth = itemDate.getMonth();
+      expense.monthData[monthNames[itemMonth]] += item.amount;
+    }
 
     // current day expense
     if (

@@ -5,7 +5,12 @@ import dotenv from "dotenv";
 dotenv.config();
 import TelegramBot from "node-telegram-bot-api";
 import User from "./utils/db.mjs";
-import generateChart from "./utils/chart.mjs";
+import {
+  generateWeekChart,
+  generateMonthChart,
+  generateCategoryChart,
+} from "./utils/chart.mjs";
+import spending_breakdown from "./utils/spendingBreakdown.mjs";
 import calculatedExpense from "./utils/calculateExpense.mjs";
 import handleUserLogin from "./botFunctions/login.mjs";
 import parseExpenseMessage from "./utils/parseExpenseMessage.mjs";
@@ -91,13 +96,29 @@ Total Expense: <b>${expense.total} ₹</b>
 
       break;
     }
+
+    case text === "/spending_breakdown": {
+      if (user) {
+        const spendingBreakdownData = spending_breakdown(user);
+        const chartImage = generateCategoryChart(spendingBreakdownData);
+        bot.sendPhoto(chatId, chartImage, {
+          caption: "Category chart",
+          contentType: "image/png",
+        });
+      } else {
+        botResponse = "Please register first using /start command.";
+      }
+      break;
+    }
+
     default:
       const parsedMessage = parseExpenseMessage(text);
       if (parsedMessage === 400) {
         botResponse = `Invalid message. Type '/start' to get instructions.`;
       } else {
         if (user) {
-          const date = new Date(2023, 7, 9);
+          const date = new Date().toLocaleString();
+          console.log(date);
           parsedMessage.date = date;
           user.expense.push(parsedMessage);
           botResponse = "recorded";
@@ -116,7 +137,7 @@ bot.on("callback_query", (query) => {
 
   if (data === "view_chart_week") {
     try {
-      const chartImage = generateChart(expense);
+      const chartImage = generateWeekChart(expense);
       bot.sendPhoto(chatId, chartImage, {
         caption: "This week expense chart:",
         contentType: "image/png",
@@ -124,9 +145,16 @@ bot.on("callback_query", (query) => {
     } catch (error) {
       console.error("Error generating or sending chart image:", error);
     }
-  } else if (data === "add_expense") {
-    // Respond with a message when "Add Expense" is clicked
-    bot.sendMessage(chatId, 'You clicked "Add Expense"');
+  } else if (data === "view_chart_month") {
+    try {
+      const chartImage = generateMonthChart(expense);
+      bot.sendPhoto(chatId, chartImage, {
+        caption: "This month expense chart:",
+        contentType: "image/png",
+      });
+    } catch (error) {
+      console.error("Error generating or sending chart image:", error);
+    }
   }
 });
 
