@@ -12,7 +12,8 @@ Search : @my_cashlow_manager_bot
 
 or Scan this Qr Code :
 
-![scan_this](https://github.com/devajay07/my_cashflow_manager_bot/assets/85946752/51908730-3f82-46c9-8810-639141b9d23b)
+![scan_this](https://github.com/devajay07/my_cashflow_manager_bot/assets/85946752/4731547c-cffb-477c-98f0-058925154a46)
+
 
 
 ** Note: **
