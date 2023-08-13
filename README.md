@@ -10,7 +10,7 @@ or
 
 Search : @my_cashlow_manager_bot 
 
-or
+or Scan this Qr Code :
 
 ![scan_this](https://github.com/devajay07/my_cashflow_manager_bot/assets/85946752/51908730-3f82-46c9-8810-639141b9d23b)
 
