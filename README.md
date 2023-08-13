@@ -1,11 +1,18 @@
-# my_cashflow_manager_bot
+# CashFlow
 
 A telegram bot to easily track,record and control your daily expenses.
 
-Add it in your telegram now:
+# Add it in your telegram now:
 
-![scan_this](https://github.com/devajay07/my_cashflow_manager_bot/assets/85946752/3dee0db0-bce8-4c07-81e8-0cf097ddfd15)
+[Click here](https://t.me/my_cashflow_manager_bot)
 
+or
+
+Search : @my_cashlow_manager_bot 
+
+or
+
+![scan_this](https://github.com/devajay07/my_cashflow_manager_bot/assets/85946752/51908730-3f82-46c9-8810-639141b9d23b)
 
 
 ** Note: **
