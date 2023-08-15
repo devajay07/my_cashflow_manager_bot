@@ -7,8 +7,9 @@ import TelegramBot from "node-telegram-bot-api";
 import User from "./utils/db.mjs";
 import {
   generateWeekChart,
-  generateMonthChart,
+  generateYearChart,
   generateCategoryChart,
+  generateMonthChart,
 } from "./utils/chart.mjs";
 import spending_breakdown from "./utils/spendingBreakdown.mjs";
 import calculatedExpense from "./utils/calculateExpense.mjs";
@@ -86,6 +87,12 @@ Total Expense: <b>${expense.total} ₹</b>
                   callback_data: "view_chart_month",
                 },
               ],
+              [
+                {
+                  text: "This Year Chart📈",
+                  callback_data: "view_chart_year",
+                },
+              ],
             ],
           },
         });
@@ -150,6 +157,16 @@ bot.on("callback_query", (query) => {
       const chartImage = generateMonthChart(expense);
       bot.sendPhoto(chatId, chartImage, {
         caption: "This month expense chart:",
+        contentType: "image/png",
+      });
+    } catch (error) {
+      console.error("Error generating or sending chart image:", error);
+    }
+  } else if (data === "view_chart_year") {
+    try {
+      const chartImage = generateYearChart(expense);
+      bot.sendPhoto(chatId, chartImage, {
+        caption: "This year expense chart:",
         contentType: "image/png",
       });
     } catch (error) {
